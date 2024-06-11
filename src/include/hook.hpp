@@ -18,8 +18,10 @@ namespace hook {
 			return reinterpret_cast<Type>(m_OriginalFunction);
 		}
 
+		void* m_OriginalFunction;
 	private:
-		unsigned char* m_TargetFunction, * m_HookedFunction, * m_OriginalFunction;
+		unsigned char* m_TargetFunction, * m_HookedFunction;
+		uintptr_t m_TrampolineLength = 0;
 		std::string_view m_Name;
 		unsigned long m_OldProtection;
 	};

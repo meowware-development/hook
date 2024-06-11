@@ -147,10 +147,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="hook.hpp" />
+    <ClInclude Include="include\hde\hde32.h" />
+    <ClInclude Include="include\hde\hde64.h" />
+    <ClInclude Include="include\hde\pstdint.h" />
+    <ClInclude Include="include\hde\table32.h" />
+    <ClInclude Include="include\hde\table64.h" />
+    <ClInclude Include="include\hook.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="hook.cpp" />
+    <ClCompile Include="include\hde\hde32.c" />
+    <ClCompile Include="include\hde\hde64.c" />
+    <ClCompile Include="include\hook.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
