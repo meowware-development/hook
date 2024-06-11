@@ -22,7 +22,7 @@ void hook::TrampolineHook::Create(std::string_view name, unsigned char* target, 
 	}
 
 	// Allocate at least length + 5 bytes
-	m_OriginalFunction = VirtualAlloc(NULL, m_TrampolineLength + 5, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	m_OriginalFunction = VirtualAlloc(NULL, m_TrampolineLength + 0x5, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 
 	// Copy the first 5 bytes to call original or unhook later
 	memcpy_s(m_OriginalFunction, m_TrampolineLength, m_TargetFunction, m_TrampolineLength);
@@ -31,7 +31,7 @@ void hook::TrampolineHook::Create(std::string_view name, unsigned char* target, 
 	*reinterpret_cast<uintptr_t*>(jump + 0x1) = ((uintptr_t)m_TargetFunction + m_TrampolineLength) - ((uintptr_t)m_OriginalFunction - 0x5);
 
 	// Copy the current byte array into the original function + trampolineLength
-	memcpy(reinterpret_cast<void*>((uintptr_t)m_OriginalFunction + m_TrampolineLength), jump, 0x5);
+	memcpy_s(reinterpret_cast<void*>((uintptr_t)m_OriginalFunction + m_TrampolineLength), 0x5, jump, 0x5);
 
 	DWORD currentProtection;
 
@@ -41,7 +41,7 @@ void hook::TrampolineHook::Create(std::string_view name, unsigned char* target, 
 	*(uintptr_t*)(jump + 0x1) = (uintptr_t)m_HookedFunction - (uintptr_t)m_TargetFunction - 0x5;
 
 	// Overwrite the bytes
-	memcpy(m_TargetFunction, jump, 0x5);
+	memcpy_s(m_TargetFunction, 0x5, jump, 0x5);
 
 	VirtualProtect(m_TargetFunction, 5, currentProtection, &currentProtection);
 

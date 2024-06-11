@@ -10,7 +10,7 @@ typedef int (WINAPI* TdefOldMessageBoxA)(HWND hWnd, LPCSTR lpText, LPCTSTR lpCap
 int WINAPI NewMessageBoxA(HWND hWnd, LPCSTR lpText, LPCTSTR lpCaption, UINT uType)
 {
 	printf("MessageBoxA called!\ntitle: %s\ntext: %s\n\n", lpCaption, lpText);
-	return reinterpret_cast<TdefOldMessageBoxA>(x.m_OriginalFunction)(hWnd, lpText, lpCaption, uType);
+	return static_cast<decltype(&NewMessageBoxA)>(x.m_OriginalFunction)(hWnd, lpText, lpCaption, uType);
 }
 
 int main() {

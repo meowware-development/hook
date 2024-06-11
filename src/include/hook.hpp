@@ -15,7 +15,7 @@ namespace hook {
 		template <typename Type>
 		Type GetOriginal()
 		{
-			return reinterpret_cast<Type>(m_OriginalFunction);
+			return (Type)m_OriginalFunction;
 		}
 
 		void* m_OriginalFunction;
